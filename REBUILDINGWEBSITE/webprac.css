@@ -1,0 +1,356 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html{
+    scroll-behavior: smooth;
+}
+body{
+    height: 1200px;
+    background-color: rgb(15, 38, 68);
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+a{
+    text-decoration: none;
+    color: white;
+
+}
+ul{
+    list-style: none;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid skyblue;
+    padding: 20px;
+    align-items: center;
+    background-color: rgb(23, 116, 144);
+    flex-wrap: wrap;
+
+}
+.text-head span{
+    color: rgb(7, 175, 241);
+}
+.text-top{
+    font-size: 19px;
+    font-weight: bold;
+    color: white;   
+}
+.text-bottom{
+    margin-top: 6px;
+    font-size: 12px;
+    color: rgb(173, 173, 173);
+}
+.nav{
+    display: flex;
+    gap: 12px;
+}
+.nav a{
+    background-color: rgb(15, 38, 68);
+    padding: 11px 10px;
+    font-size: 12px;
+    border-radius: 16px;
+    transition: background-color 0.5s
+}
+.nav a:hover{
+    background-color: rgb(7, 175, 241);
+}
+/* GENERAL STUFF FOR THE BODY */
+
+.layout{
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 20px;
+}
+/* ================== */
+
+/* SIDEBAR === SIDEBAR ==== SIDEBAR === SIDEBAR*/
+
+.side-info{
+    background-color:rgb(23, 116, 144);
+    padding: 12px;
+    border-radius: 9px;
+}
+
+    
+.side-info p{
+    color:rgb(28, 226, 223);
+    letter-spacing: 1px;
+    margin-left: 5px;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+.side-info li{
+    font-size: 13px;
+    padding: 9px;
+    margin-bottom: 14px;
+    transition:background-color, 0.25s;
+    margin-left: 5px;
+}
+.side-info li:hover{
+    background-color: rgb(124, 122, 122);
+}
+.side-info2{
+    background-color:rgb(23, 116, 144);
+    padding: 12px;
+    border-radius: 9px;
+    margin-top: 19px;
+}
+.info-holder{
+    margin-bottom: 24px;
+    padding-left: 6px;
+}
+.info2{
+    padding: 8px;
+    color:rgb(7, 175, 241);
+    letter-spacing: 0.7px;
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+.info-holder span{
+    font-weight: bold;
+    color:rgb(7, 175, 241);
+    font-size: 27px;
+
+}
+.info-holder p{
+    color:rgb(173, 173, 173);
+    font-size: 14px;
+    margin-top: 6px;
+}
+/* INTRO INTRO INTRO INTRO INTRO */
+
+.intro-holder{
+    background-color:rgb(27, 88, 113);
+    padding: 20px;
+    display: flex;
+    gap: 50px;
+    border-radius: 12px;
+}
+.intro-infobox{
+    outline: 2px solid black;
+    flex: 1;
+}
+.intro-info{
+    font-size: 29px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+.intro-info span{
+    color:rgb(7, 175, 241);
+}
+.intro-info2{
+    color: rgb(210, 203, 203);
+    letter-spacing: 0.6px;
+    line-height: 1.3;
+
+}
+.box-holder{
+    outline: 2px red solid;
+    width: 200px;
+    height: 200px;
+    position: relative;
+}
+.circle{
+   position: absolute;
+   border-radius: 50%;
+   border: 2px solid skyblue;
+   animation: wifi 3s infinite;
+}
+.c1{
+    width: 180px;
+    height: 180px; 
+    top: 10px;
+    left: 10px;
+    animation-delay: 0.4s;
+}
+.c2{
+    width: 140px;
+    height: 140px;
+    top: 30px;
+    left: 30px;
+    animation-delay: 0.7s;
+}
+.c3{
+    width: 100px;
+    height: 100px;
+    top: 50px;
+    left: 50px;
+    animation-delay: 1s;
+}
+.circle-box{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color:skyblue;
+    border-radius: 15px;
+    top: 70px;
+    left: 70px;
+}
+@keyframes wifi{
+    0% {opacity : 0.2}
+    50%{opacity : 1}
+    100%{opacity : 0.2}
+}
+
+/* BARS BARS BARS BARS */
+section{
+    margin-bottom: 40px;
+    margin-left: 12px;
+}
+
+
+.bar-upperinfo{
+    margin-left: 12px;
+
+}
+
+.bar-upperinfo h1{
+    color: white;
+    margin-bottom: 8px;
+}
+.bar-upperinfo p{
+    font-size: 17px;
+    color: gray;
+}
+.bar-info{
+    width: 140px;
+    text-align: left;
+  
+}
+.bar-info2{
+    
+    text-align: right;
+    width: 67px;
+}
+.bar-holder{
+    margin-top: 12px;
+    background-color: rgb(18, 72, 94);
+    padding: 20px;
+    border-radius: 12px;
+}
+.bar-row{
+    display: flex;
+    align-items:center;
+    gap: 15px;
+    height: 22px;
+}
+.bar{
+    background-color: gray;
+    height: 100%;
+    border-radius: 34px;
+    flex: 1;
+}
+.good{ background-color: green;height: 100%;border-radius: 45px; }
+.medium{background-color: yellow; height: 100%;border-radius: 45px;}
+.bad{background-color: red; height: 100%;border-radius: 45px;}
+
+
+.gridrow{
+    display: grid;
+    row-gap: 28px;
+}
+
+/* CARDS CARDS CARDS CARDS CARDS */
+.cardholder{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+    margin-top: 25px;
+    
+}
+.cards{
+    background-color: rgb(18, 72, 94);
+    padding: 23px;
+    border-radius: 12px;
+    border-top: 2px solid blue;
+
+}
+.cards:hover{
+    background-color:rgb(78, 106, 142);
+    transition: background-color 0.3s;
+}
+.cards h1{
+    margin-bottom: 10px;
+}
+.cards h3{
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: white;
+    
+}
+.cards p{
+    font-size: 14px;
+    margin-left: 5px;
+    color:rgb(124, 122, 122);
+    padding-bottom: 20px;
+}
+/* COMPARE COMPARE COMPARE COMPARE */
+
+.vs-holder{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    
+}
+.v1{
+    color: skyblue;
+}
+.v2{
+    color: pink;
+}
+.title{
+    font-weight: bold;
+    font-size: 19px;
+}
+.compare-box{
+    background-color: rgb(18, 72, 94);
+    padding: 20px;
+    margin-top: 12px;
+    border-radius: 12px;
+}
+.compare-box p{
+    color:rgb(124, 122, 122);
+    margin-top: 5px;
+    
+}
+.compare-box ul{
+    margin-top: 16px;
+}
+.compare-box li{
+    font-size: 17px;
+    color: white;
+    border-bottom: 2px solid gray;
+    margin-bottom: 12px;
+}
+/* FOOTEER FOOTER FOOTER FOOTER FOOTER */
+
+.footer-holder{
+    background-color: rgb(23, 116, 144);
+    border-top: 2px solid blue;
+    display: flex;
+    justify-content: space-between;
+    padding: 18px;
+}
+.footer-column{
+    max-width: 300px;
+
+}
+.footer-column h3{
+    color: rgb(107, 107, 232);
+    margin-bottom: 12px;
+}
+.footer-column li{
+    color: gray;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+}
+.footer-column p{
+    color: gray;
+    font-size: 14px;
+}

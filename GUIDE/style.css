@@ -1,0 +1,519 @@
+/* =========================================================
+   LEARNING VERSION: same styles, extra comments
+   =========================================================
+   How to read this file:
+   - A CSS rule looks like:   selector { property: value; }
+     The selector says WHICH element, each property says WHAT to change.
+   - ".name" targets class="name" in the HTML. "#name" targets id="name".
+   - TRY IT lines are small experiments. Change one thing, save,
+     refresh the browser, watch what happens, then undo it.
+   - Use DevTools (F12 > Elements) to see which rules apply to an element.
+   ========================================================= */
+
+
+/* =========================================================
+   1. FOUNDATION: reset, colour variables, centred page
+   ========================================================= */
+
+/* "*" means EVERY element.
+   border-box = padding and border are counted INSIDE the width you set,
+   so adding padding never makes a box bigger than its width.
+   TRY IT: delete this rule and watch the cards get wider/misaligned. */
+* {
+  box-sizing: border-box;
+}
+
+/* CSS VARIABLES (custom properties).
+   ":root" is the top of the page, so variables defined here work everywhere.
+   Names start with two dashes. Use them later with var(--name).
+   Change a colour once here and the whole site updates.
+   TRY IT: change --accent to #f472b6 (pink) and refresh. */
+:root {
+  --bg: #0f172a;          /* page background (dark navy) */
+  --card: #1e293b;        /* card background (a bit lighter) */
+  --line: #334155;        /* borders and bar tracks */
+  --text: #f1f5f9;        /* main text */
+  --muted: #94a3b8;       /* softer, secondary text */
+  --accent: #a78bfa;      /* violet */
+  --accent-2: #38bdf8;    /* sky blue */
+}
+
+/* "html" is the whole document.
+   smooth = nav links glide to their section instead of snapping.
+   Only affects link jumps. Chrome ignores it if the OS "Reduce motion"
+   accessibility setting is on. */
+html {
+  scroll-behavior: smooth;
+}
+
+/* The visible page area. */
+body {
+  margin: 0;                         /* browsers add ~8px margin by default; remove it */
+  background-color: var(--bg);       /* var(--bg) = the value stored in --bg above */
+  color: var(--text);                /* default text colour; children inherit it */
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+                                     /* font stack: the browser uses the first one it has */
+  line-height: 1.6;                  /* space between text lines (1.6 x font size) */
+}
+
+
+/* THE PAGE HOLDER. Two lines do the centring:
+   max-width = "never wider than this" (a ceiling, shrinks on small screens)
+   margin: 0 auto = top/bottom 0, left/right "auto" (split leftover space equally)
+   "auto" only centres when the box has a max-width/width to compare to.
+   padding keeps content off the screen edges.
+   TRY IT: change max-width to 800px and watch the site get narrower and stay centred. */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* All links: take the surrounding text colour and remove the default underline.
+   "inherit" = copy this property from the parent. */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* =========================================================
+   2. HEADER: flex, with a nested flex nav
+   ========================================================= */
+
+/* FLEXBOX BASICS: display: flex turns the element into a flex container.
+   Its direct children become flex items laid out in a ROW.
+   - justify-content works along the main axis (horizontal in a row)
+   - align-items works along the cross axis (vertical in a row) */
+.header {
+  display: flex;
+  justify-content: space-between;   /* first item far left, last item far right */
+  align-items: center;              /* centre items vertically */
+  flex-wrap: wrap;                  /* allow items to drop to a new line if too narrow */
+  gap: 12px;                        /* space BETWEEN flex items (not outside them) */
+  padding: 18px 0;                  /* 18px top/bottom, 0 left/right */
+  border-bottom: 1px solid var(--line);
+
+  /* STICKY HEADER: acts normal until you scroll, then sticks at top: 0.
+     z-index puts it above other content. The background hides what scrolls under it.
+     TRY IT: remove the three lines (position, top, z-index) and scroll. */
+  position: sticky;
+  top: 0;
+  z-index: 1; /* z index means layer kung anong tatakpan niya. nakadefault lahat into z-index: 0; so kapag 1 i-cocover niya yung mas mababa sakaniya */
+  background-color: var(--bg);
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;     /* 400 is normal, 700 is bold, 800 is extra bold */
+  letter-spacing: 0.5px;  /* space between letters */
+}
+
+/* ::before creates a pseudo-element BEFORE the logo's text, with no HTML needed.
+   It needs content (even empty "") or it doesn't appear.
+   It's a decorative dot: a 10x10 box with border-radius: 50% = a circle.
+   inline-block lets it have a width/height while sitting in the text line. */
+.logo::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background-color: var(--accent);
+}
+
+/* NESTED FLEX: .navlinks is a flex ITEM of .header and also a flex CONTAINER
+   for its own links. Each flex container only controls its direct children. */
+.navlinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* ".navlinks a" = every <a> INSIDE .navlinks (a descendant selector).
+   border-radius: 999px = fully rounded ends (a "pill" shape).
+   transition = animate these properties over 0.2s when they change (see :hover). */
+.navlinks a {
+  padding: 8px 16px;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 15px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* :hover = while the mouse is over it. The transition above makes this smooth. */
+.navlinks a:hover {
+  background-color: var(--card);
+  color: var(--text);
+}
+
+
+/* =========================================================
+   3. HERO: flex + position relative/absolute
+   ========================================================= */
+
+.hero {
+  display: flex;
+  align-items: center;      /* vertically centre the text side and picture side */
+  flex-wrap: wrap;          /* if there isn't room for both, the picture drops below */
+  gap: 60px;
+  padding: 90px 0 80px;     /* top 90px, left/right 0, bottom 80px */
+  scroll-margin-top: 80px;  /* when a nav link jumps here, stop 80px early so the sticky header doesn't cover it */
+}
+
+/* FLEX: 1 = "take all leftover space" (so the text side fills what the picture doesn't use).
+   min-width = a floor. Without it, flex could squash this side until the text is a thin column.
+   (This is the bug from your practice exercise!)
+   TRY IT: delete min-width, then shrink the window and watch. */
+.hero-text {
+  flex: 1;
+  min-width: 320px;
+}
+
+.eyebrow {
+  margin: 0 0 14px;        /* top 0, sides 0, bottom 14px */
+  color: var(--accent-2);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;   /* displays in capitals, whatever was typed */
+}
+
+.hero h1 {
+  margin: 0 0 22px;
+  font-size: 56px;
+  line-height: 1.1;        /* tighter than body text because it's big */
+}
+
+/* GRADIENT TEXT, 3 steps:
+   1. background: a gradient (90deg = left to right)
+   2. background-clip: text = only show the background where the letters are
+   3. color: transparent = make the real text invisible so the background shows through
+   (-webkit- version is for older Chrome/Safari.) */
+.highlight {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-intro {
+  margin: 0 0 32px;
+  max-width: 520px;      /* keeps lines short and readable */
+  color: var(--muted);
+  font-size: 18px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* BASE BUTTON. The links are inline by default; as flex items they act like boxes,
+   so padding works fully. */
+.button {
+  padding: 13px 26px;
+  border-radius: 12px;
+  background-color: var(--accent);
+  color: #0f172a;
+  font-weight: 700;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* transform: translateY(-3px) moves it up 3px WITHOUT affecting the layout around it.
+   box-shadow: x-offset y-offset blur colour. */
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(167, 139, 250, 0.35);   /* rgba(r, g, b, opacity 0 to 1) */
+}
+
+/* MODIFIER CLASS: ".button.secondary" (no space) = an element with BOTH classes.
+   It overrides only what's different (outline look). Everything else comes from .button. */
+.button.secondary {
+  background-color: transparent;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+
+.button.secondary:hover {
+  border-color: var(--accent);
+  box-shadow: none;     /* cancel the glow inherited from .button:hover */
+}
+
+/* POSITIONING:
+   position: relative = the box stays where it is, AND becomes the anchor
+   for any position: absolute children inside it. */
+.hero-picture {
+  position: relative;
+  flex-shrink: 0;       /* never let flexbox shrink this box */
+  width: 280px;
+  height: 280px;
+  border-radius: 32px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));   /* 135deg = diagonal */
+
+  /* CENTRING WITH GRID: a grid with place-items: center puts its child dead-centre,
+     both vertically and horizontally. A handy trick for one item. */
+  display: grid;
+  place-items: center;
+}
+
+.initial {
+  font-size: 130px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+/* position: absolute = take it out of the normal flow and place it using top/right/bottom/left,
+   measured from the nearest ancestor that has a position (here .hero-picture).
+   Negative values (-14px) push it OUTSIDE the box edge.
+   If no ancestor had a position, it would anchor to the whole page instead.
+   TRY IT: change top and right to 0, then to 50px. Watch the badge move inside the box. */
+.badge {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background-color: var(--bg);
+  border: 2px solid var(--accent-2);
+  color: var(--accent-2);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   4. SECTIONS (shared by Skills and Projects)
+   ========================================================= */
+
+/* Skills and Projects both have class="section", so this one rule styles both. */
+.section {
+  padding: 70px 0;
+  scroll-margin-top: 80px;
+}
+
+.section-title {
+  margin: 0 0 8px;
+  font-size: 34px;
+}
+
+.section-intro {
+  margin: 0 0 36px;
+  color: var(--muted);
+}
+
+
+/* =========================================================
+   5. SKILLS: grid with 3 columns + progress bars
+   ========================================================= */
+
+/* GRID BASICS: display: grid + grid-template-columns defines columns.
+   repeat(3, 1fr) = 3 columns, each "1fr" (one equal fraction of the free space).
+   Same as writing "1fr 1fr 1fr".
+   gap = space between rows AND columns.
+   Only DIRECT children become grid items.
+   TRY IT: change the 3 to 2 or 4, or change one column: "2fr 1fr 1fr". */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* TRANSITION on the base class so it animates BOTH when you hover in AND out.
+   (If it were only on :hover, it would animate in but snap back instantly.) */
+.skill-card {
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background-color: var(--card);
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+/* The lift effect: move up 6px, highlight the border, add a shadow below.
+   TRY IT: change -6px to -20px. */
+.skill-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Name left, percentage right: a flex row with space-between. */
+.skill-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.skill-top h3 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.skill-level {
+  color: var(--accent-2);
+  font-weight: 700;
+}
+
+/* THE PROGRESS BAR TRACK: the full-length grey bar.
+   overflow: hidden clips anything poking out, so the fill keeps the rounded ends. */
+.bar-track {
+  height: 12px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background-color: var(--line);
+  overflow: hidden;
+}
+
+/* THE FILL: height: 100% = as tall as the track.
+   NO width here on purpose. Each fill's width comes from the inline style
+   in the HTML (e.g. style="width: 80%"), as a percentage of the track.
+   One class for the look, one inline value for what's different. */
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+.skill-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   6. PROJECTS: grid + one wide card (grid-column: span 2)
+   ========================================================= */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* A grid item can ALSO be a flex container (here, laid out top to bottom).
+   flex-direction: column = the main axis is vertical now, so items stack.
+   align-items: flex-start = on a column, this is the HORIZONTAL axis;
+   it stops the status pill from stretching to the full card width. */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background-color: var(--card);
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+.project-card:hover {
+  transform: translateY(-7px);
+  border-color: var(--accent-2);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+.project-card h3 {
+  margin: 14px 0 10px;
+  font-size: 22px;
+}
+
+.project-card p {
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* grid-column: span 2 = this item takes up 2 column tracks instead of 1.
+   Modifier class again: it only overrides what's different from .project-card.
+   TRY IT: change 2 to 3 (full row) or remove the line. */
+.project-card.featured {
+  grid-column: span 2;
+  padding: 36px;
+  background: linear-gradient(135deg, #1e293b, #2a2f55);
+}
+
+.project-card.featured h3 {
+  font-size: 28px;
+}
+
+/* margin-top: auto in a flex column = "use all the free space above me",
+   which pushes the tags to the bottom of the card. This is why tags line up
+   at the bottom even when the text above is a different length.
+   TRY IT: delete margin-top and compare the tags' positions. */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.tags span {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background-color: var(--bg);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* STATUS PILL: base class (.status) for the shape, plus one small class per colour.
+   ".status.done" = an element with BOTH classes.
+   rgba(..., 0.15) = the same colour at 15% opacity, for a soft tinted background. */
+.status {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.status.done     { background-color: rgba(52, 211, 153, 0.15); color: #34d399; }
+.status.progress { background-color: rgba(56, 189, 248, 0.15); color: var(--accent-2); }
+.status.soon     { background-color: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+.status.idea     { background-color: rgba(148, 163, 184, 0.15); color: var(--muted); }
+
+
+/* =========================================================
+   7. FOOTER: flex
+   ========================================================= */
+
+/* Same flex pattern as the header: text on the left, links on the right. */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 36px 0 48px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.footer p {
+  margin: 0;
+}
+
+.footer-links {
+  display: flex;
+  gap: 22px;
+}
+
+.footer-links a:hover {
+  color: var(--text);
+}
+
+
+/* =========================================================
+   WHAT TO LEARN NEXT (ideas)
+   =========================================================
+   - Add a 4th skill card and decide how to handle the last grid row
+   - Put the nav links in a list (<ul> / <li>) and restyle them
+   - Make the hero picture a real <img> instead of a letter
+   - Change the grid to repeat(auto-fit, minmax(260px, 1fr)) so the cards
+     wrap on their own without a media query
+   - Add a "Contact" section with a form
+   ========================================================= */

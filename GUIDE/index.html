@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<!-- ^ Line 1 tells the browser "this is a modern HTML5 page". Always keep it first. -->
+
+<!--
+  ==========================================================
+  LEARNING VERSION: same website, extra comments
+  ==========================================================
+  How to read this file:
+  - "HTML" decides WHAT is on the page (the content and its structure).
+  - "CSS" (style.css) decides HOW it looks. Each element below has a
+    class name; search that name in style.css to find its rules.
+  - Lines starting with TRY IT are small experiments. Change one thing,
+    save, refresh, and watch what happens. Undo it after.
+  ==========================================================
+-->
+
+<html lang="en">
+<!-- lang="en" helps screen readers and translators know the page language -->
+
+<head>
+  <!-- The <head> holds information ABOUT the page. Nothing in it is shown on the page. -->
+
+  <!-- Makes special characters (like the dot in the nav) display correctly -->
+  <meta charset="UTF-8">
+
+  <!-- Tells phones to use the real screen width instead of pretending to be wide.
+       Good habit to always include, even for a desktop-only site. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- The text shown in the browser tab -->
+  <title>Kyle | Portfolio</title>
+
+  <!-- Connects the CSS file. href is the file's location. If the page looks
+       unstyled, a wrong file name or folder here is the first thing to check.
+       TRY IT: change "style.css" to "styles.css", refresh, and watch every style vanish. -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Everything visible on the page lives inside <body>. -->
+
+  <!--
+    .page = the wrapper (the "page holder").
+    All content sits inside it so ONE rule (max-width + margin auto)
+    can centre and limit the whole site. See "1. FOUNDATION" in style.css.
+    It's a <div> because it has no special meaning, it's just a box.
+  -->
+  <div class="page">
+
+    <!-- ========== HEADER (flex, with a nested flex nav) ========== -->
+    <!--
+      <header> is a "semantic" tag: it works like a <div> but tells browsers
+      and screen readers "this is the top part of the page".
+      Other semantic tags used here: nav, main, section, footer.
+    -->
+    <header class="header">
+      <!-- Flex item #1 (left side). It's a div because it's just text, not a link. -->
+      <div class="logo">Kyle</div>
+
+      <!--
+        Flex item #2 (right side). <nav> marks a group of navigation links.
+        ALSO a flex container itself (nested flex) because style.css gives
+        .navlinks "display: flex". Its <a> tags are its flex items.
+      -->
+      <nav class="navlinks">
+        <!--
+          href="#hero" means "jump to the element whose id is hero".
+          The # points to an id, not a file. Each link below matches an id
+          further down the page. If an id is misspelled, the link silently does nothing.
+        -->
+        <a href="#hero">Home</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- <main> wraps the main content (everything except header and footer). Use it once per page. -->
+    <main>
+
+      <!-- ========== HERO (flex + position relative/absolute) ========== -->
+      <!--
+        id="hero"   = a unique name, used by the nav link above (href="#hero").
+                      An id must be used only ONCE on a page.
+        class="hero" = a reusable name for styling in CSS.
+        You can have both on the same element.
+        <section> = one themed chunk of the page.
+      -->
+      <section id="hero" class="hero">
+
+        <!-- Flex item #1: the text side. CSS gives it flex: 1 (take the leftover space). -->
+        <div class="hero-text">
+          <p class="eyebrow">BSIT student &middot; Palawan State University</p>
+          <!-- &middot; is an HTML "entity": it prints a middle dot (.) without typing the symbol -->
+
+          <!--
+            <h1> is the main title. Use ONE <h1> per page (your WiFi site had several).
+            <span class="highlight"> wraps just the word "Kyle" so CSS can give
+            only that word a gradient colour. A <span> is an inline box for
+            styling a piece of text without starting a new line.
+            <br> forces a line break.
+          -->
+          <h1>Hi, I'm <span class="highlight">Kyle</span>.<br>I build things for the web.</h1>
+
+          <p class="hero-intro">
+            I'm an IT student learning HTML, CSS and Python. I like turning
+            hard ideas into simple pages, like explaining how WiFi signals move.
+            Right now I'm working my way up to JavaScript.
+          </p>
+
+          <!--
+            A flex container for the two buttons, so they sit side by side with a gap.
+            The buttons are <a> tags (links) that are STYLED to look like buttons.
+            Use <a> when it goes somewhere, <button> when it does something (needs JavaScript).
+          -->
+          <div class="hero-buttons">
+            <!-- "button" = base style. "button secondary" = base style + the modifier class (outline look).
+                 This is the modifier-class pattern: base class + small override class. -->
+            <a href="#projects" class="button">See my projects</a>
+            <a href="#skills" class="button secondary">What I know</a>
+          </div>
+        </div>
+
+        <!--
+          Flex item #2: the picture box.
+          In CSS, .hero-picture is "position: relative", which makes it the
+          ANCHOR for the .badge inside it (which is "position: absolute").
+          The big letter is just text, no image file needed.
+        -->
+        <div class="hero-picture">
+          <span class="initial">K</span>
+          <span class="badge">BSIT &middot; Year 1</span>
+          <!-- TRY IT: in style.css, delete "position: relative" from .hero-picture
+               and watch where the badge jumps to. Then put it back. -->
+        </div>
+      </section>
+
+      <!-- ========== SKILLS (grid, 3 columns) ========== -->
+      <!--
+        class="section" is shared by Skills and Projects (same padding and spacing),
+        so the rule is written once in CSS and used twice.
+      -->
+      <section id="skills" class="section">
+        <!-- <h2> = a section title. Headings go in order: h1 (page), h2 (sections), h3 (cards). -->
+        <h2 class="section-title">Skills</h2>
+        <p class="section-intro">What I'm comfortable with, and what I'm still working on.</p>
+
+        <!--
+          .skills-grid is the grid container (display: grid, 3 columns).
+          Only its DIRECT children (the three .skill-card divs) become grid items.
+          If you wrapped a card in another div, the grid would treat the wrapper as the item.
+        -->
+        <div class="skills-grid">
+
+          <!-- One card. Copy this whole block to add a skill; the grid places it automatically. -->
+          <div class="skill-card">
+
+            <!-- Name on the left, percentage on the right: another flex row (.skill-top) -->
+            <div class="skill-top">
+              <h3>HTML</h3>
+              <span class="skill-level">80%</span>
+            </div>
+
+            <!--
+              THE PROGRESS BAR = two boxes, one inside the other:
+                .bar-track = the grey full-length bar (always 100% of the card width)
+                .bar-fill  = the coloured part inside it
+              The inline style="width: 80%" sets how FULL the bar is. A percent
+              width means "80% of my parent's width", and the parent is the track.
+              The class handles the LOOK. The inline style handles the ONE value
+              that's different per bar.
+              TRY IT: change 80% to 20% or 100% and refresh.
+            -->
+            <div class="bar-track"><div class="bar-fill" style="width: 80%"></div></div>
+
+            <p>Page structure, semantic tags, links and sections.</p>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-top">
+              <h3>CSS</h3>
+              <span class="skill-level">70%</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" style="width: 70%"></div></div>
+            <p>Flexbox, grid, positioning, hover effects and transitions.</p>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-top">
+              <h3>Python</h3>
+              <span class="skill-level">40%</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" style="width: 40%"></div></div>
+            <p>Learning the basics: variables, loops and small programs.</p>
+          </div>
+
+          <!-- TRY IT: copy one skill-card block and paste it here to make a 4th card.
+               What happens to the grid? (The 4th card wraps to a new row, because
+               the grid only has 3 columns.) -->
+
+        </div>
+      </section>
+
+      <!-- ========== PROJECTS (grid + grid-column: span 2) ========== -->
+      <section id="projects" class="section">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-intro">Things I've built, and things I'm planning to build.</p>
+
+        <!-- Same idea as the skills grid: 3 columns, children become grid items. -->
+        <div class="projects-grid">
+
+          <!--
+            "project-card featured" = the modifier-class pattern again:
+            base class (shared card look) + .featured (the one that spans 2 columns).
+            Remove the word "featured" and this card shrinks to normal size.
+            TRY IT: remove "featured" from this line, refresh, then put it back.
+          -->
+          <div class="project-card featured">
+            <!--
+              The status pill: base class "status" + a colour class
+              (done / progress / soon / idea). Each colour class only sets colours.
+            -->
+            <span class="status done">Finished</span>
+            <h3>How WiFi Signals Move</h3>
+            <p>
+              My first website, made for my CC1 class. An infographic that
+              explains how WiFi signals travel and what blocks them, with
+              signal-strength bars, comparison cards and a tips section.
+            </p>
+            <!-- Little tag pills in a flex row that wraps if there are too many. -->
+            <div class="tags">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>Flexbox</span>
+              <span>Grid</span>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <span class="status progress">In progress</span>
+            <h3>This Portfolio</h3>
+            <p>The page you're looking at, built to practise grid and flex.</p>
+            <div class="tags">
+              <span>HTML</span>
+              <span>CSS</span>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <span class="status soon">Coming soon</span>
+            <h3>Python Project</h3>
+            <p>A small program once I finish the basics.</p>
+            <div class="tags">
+              <span>Python</span>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <span class="status idea">Idea</span>
+            <h3>Mobile Game</h3>
+            <p>A merge game I want to publish on the Play Store one day.</p>
+            <div class="tags">
+              <span>Planning</span>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <span class="status idea">Idea</span>
+            <h3>Next Website</h3>
+            <p>Something bigger, with JavaScript to make it interactive.</p>
+            <div class="tags">
+              <span>JavaScript</span>
+            </div>
+          </div>
+
+          <!--
+            Grid maths: 3 columns. The featured card uses 2 cells, the next card 1 = row 1 full.
+            The other 3 cards fill row 2. Total = 2 + 1 + 1 + 1 + 1 = 6 cells = 2 full rows.
+            If you add or remove a card, check that the last row still looks full.
+          -->
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ========== FOOTER (flex) ========== -->
+    <!--
+      id="contact" is here so the "Contact" nav link has somewhere to jump to.
+      (You can put an id on any element, even a footer.)
+    -->
+    <footer id="contact" class="footer">
+      <!-- &copy; prints the copyright symbol. -->
+      <p>&copy; 2026 Kyle. Built with HTML and CSS.</p>
+      <nav class="footer-links">
+        <a href="#hero">Back to top</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+      </nav>
+    </footer>
+
+  </div>
+  <!-- end of .page -->
+
+</body>
+</html>
