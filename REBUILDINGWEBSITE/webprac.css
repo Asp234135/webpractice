@@ -204,11 +204,6 @@ section{
 }
 
 
-.bar-upperinfo{
-    margin-left: 12px;
-
-}
-
 .bar-upperinfo h1{
     color: white;
     margin-bottom: 8px;
@@ -327,6 +322,38 @@ section{
     border-bottom: 2px solid gray;
     margin-bottom: 12px;
 }
+
+/* DO THIS AND DONT ==== DO THIS AND DONT */    
+.checkholder{
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.check{
+    background-color:rgb(18, 72, 94);
+    border-radius: 12px;
+    padding: 20px;
+
+
+}
+.check li{
+    color: white;
+    margin-bottom: 7px;
+}
+.greencheck h2{
+    color: lightgreen;
+    margin-bottom: 12px;
+}
+.redcheck h2{
+    color: red;
+    margin-bottom: 12px;
+}
+
+
+
+
 /* FOOTEER FOOTER FOOTER FOOTER FOOTER */
 
 .footer-holder{
