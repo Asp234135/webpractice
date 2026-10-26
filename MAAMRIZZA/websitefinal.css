@@ -53,20 +53,20 @@
    color: #94a3b8;
  }
  .navlinks{
-   display:flex;
-   gap: 20px;
-   flex-wrap: wrap;
+  margin-right: 12px;
    
  }
  .navlinks a{
    background-color: #0f172a;
    border-radius: 16px;
-   padding: 8px 14px;
+   padding: 11px 16px;
    font-size: 14px;
-   transition: background-color 0.5s
+   transition: background-color 0.35s, padding 0.35s;
+   margin-right: 12px;
  }
  .navlinks a:hover{
    background-color: #38bdf8;
+   padding: 14px 18px;
  }
 
 
