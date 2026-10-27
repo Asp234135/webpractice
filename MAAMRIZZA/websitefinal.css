@@ -61,7 +61,7 @@
    border-radius: 16px;
    padding: 11px 16px;
    font-size: 14px;
-   transition: background-color 0.35s, padding 0.35s;
+   transition: all 0.35s ease;
    margin-right: 12px;
  }
  .navlinks a:hover{
@@ -88,7 +88,7 @@
    padding: 10px 18px;
    font-size: 14px;
    margin-bottom: 4px;
-   transition: background-color .25s
+   transition: all 0.25s ease;
  }
  .side-box li:hover{
    background-color: #334155;
@@ -225,7 +225,7 @@
   padding: 20px;
   border-radius: 10px;
   border-top: 3px solid #38bdf8;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
   
 }
 .card:hover{
